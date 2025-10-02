@@ -27,7 +27,11 @@ export const TeX: React.FC<TeXProps> = ({ children, block = false, className }) 
         throwOnError: false,
         trust: true,
         strict: false,
-        displayMode: block
+        displayMode: block,
+        // 确保中文字符正确显示
+        macros: {
+          "\\text": "\\text"
+        }
       });
     } catch (error) {
       console.error('TeX渲染错误:', error);

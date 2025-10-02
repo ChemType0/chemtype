@@ -5,12 +5,78 @@
 }
 
 .container {
-  max-width: 800px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+/* 响应式布局 */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  
+  .preset-buttons {
+    order: -1;
+  }
+  
+  .main-content {
+    min-width: 400px; /* 平板端稍微减小最小宽度 */
+  }
+  
+  .formula-input {
+    min-width: 350px; /* 平板端输入框最小宽度 */
+  }
+  
+  .preview-section {
+    min-width: 350px; /* 平板端预览区域最小宽度 */
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 10px;
+  }
+  
+  .container {
+    gap: 15px;
+  }
+  
+  .main-content {
+    min-width: 300px; /* 移动端最小宽度 */
+  }
+  
+  .formula-input {
+    min-width: 250px; /* 移动端输入框最小宽度 */
+  }
+  
+  .preview-section {
+    min-width: 250px; /* 移动端预览区域最小宽度 */
+  }
+}
+
+/* 左侧快速测试区域 */
+.preset-buttons {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: fit-content;
+}
+
+/* 右侧主要内容区域 */
+.main-content {
   background: white;
   border-radius: 8px;
   padding: 30px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-width: 600px; /* 设置最小宽度，确保公式有足够空间 */
 }
 
 h1 {
@@ -50,14 +116,35 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* 分子式按钮 - 小按钮，多列 */
+/* 分子式按钮 - 响应式布局 */
 .button-grid.molecular {
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
 }
 
-/* 反应方程式按钮 - 稍大按钮，少列 */
+/* 反应方程式按钮 - 响应式布局 */
 .button-grid.reaction {
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+/* 响应式按钮布局 */
+@media (max-width: 1024px) {
+  .button-grid.molecular {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  }
+  
+  .button-grid.reaction {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .button-grid.molecular {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .button-grid.reaction {
+    grid-template-columns: 1fr;
+  }
 }
 
 .preset-btn {
@@ -111,6 +198,7 @@ h1 {
 
 .formula-input {
   width: 100%;
+  min-width: 500px; /* 输入框最小宽度 */
   padding: 15px;
   border: 2px solid #ddd;
   border-radius: 6px;
@@ -125,6 +213,7 @@ h1 {
 
 .preview-section {
   min-height: 100px;
+  min-width: 500px; /* 预览区域最小宽度 */
   padding: 20px;
   border: 1px solid #eee;
   border-radius: 6px;

@@ -75,7 +75,11 @@ export const exportAsHTML = async (formula: string): Promise<void> => {
         throwOnError: false,
         displayMode: true,
         trust: true,
-        strict: false
+        strict: false,
+        // 确保中文字符正确显示
+        macros: {
+          "\\text": "\\text"
+        }
       });
       
       // 获取渲染后的HTML内容
@@ -92,7 +96,7 @@ export const exportAsHTML = async (formula: string): Promise<void> => {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -109,6 +113,13 @@ export const exportAsHTML = async (formula: string): Promise<void> => {
             font-size: 24px;
             color: #2c3e50;
             margin: 20px 0;
+        }
+        /* 确保KaTeX中的中文字符正确显示 */
+        .katex {
+            font-family: "KaTeX_Main", "Microsoft YaHei", "SimSun", Arial, sans-serif;
+        }
+        .katex .mord {
+            font-family: "KaTeX_Main", "Microsoft YaHei", "SimSun", Arial, sans-serif;
         }
     </style>
 </head>
@@ -143,16 +154,3 @@ export const exportAsHTML = async (formula: string): Promise<void> => {
   }
 };
 
-// 导出为Word XML格式
-export const exportAsWord = (formula: string): string => {
-  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:body>
-    <w:p>
-      <w:r>
-        <w:t>化学公式: ${formula}</w:t>
-      </w:r>
-    </w:p>
-  </w:body>
-</w:document>`;
-};

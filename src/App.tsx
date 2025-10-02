@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import 'katex/dist/katex.min.css';
 import { TeX } from './components/TeX';
-import { exportAsImage, exportAsHTML, exportAsWord } from './utils/exportUtils';
+import { exportAsImage, exportAsHTML } from './utils/exportUtils';
 import './App.css';
 
 // 分子式示例
@@ -38,9 +38,8 @@ const REACTION_FORMULAS = [
 
 // 导出格式选项
 const EXPORT_FORMATS = [
-  { id: 'html', label: '导出 HTML' },
-  { id: 'image', label: '导出 图片' },
-  { id: 'word', label: '导出 Word' }
+  { id: 'html', label: '复制 HTML' },
+  { id: 'image', label: '复制 图片' }
 ];
 
 // 输入组件
@@ -178,11 +177,6 @@ const App: React.FC = () => {
           await exportAsHTML(formula);
           setExportMessage('✅ HTML和纯文本已复制到剪贴板！');
           break;
-        case 'word':
-          const wordContent = exportAsWord(formula);
-          await navigator.clipboard.writeText(wordContent);
-          setExportMessage('✅ Word XML已复制到剪贴板！');
-          break;
         default:
           console.log(`导出为 ${format} 格式`);
       }
@@ -199,33 +193,37 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <div className="container">
-        <h1>化学公式编辑器</h1>
-        
-        <FormulaInput 
-          value={formula}
-          onChange={handleFormulaChange}
-        />
-        
+        {/* 左侧快速测试区域 */}
         <PresetButtons onSelect={handlePresetSelect} />
 
-        <div className="preview-section" ref={previewRef}>
-          <FormulaPreview formula={formula} />
-        </div>
+        {/* 右侧主要内容区域 */}
+        <div className="main-content">
+          <h1>化学公式编辑器</h1>
+          
+          <FormulaInput 
+            value={formula}
+            onChange={handleFormulaChange}
+          />
 
-        <ExportButtons onExport={handleExport} />
-        
-        {/* 导出状态显示 */}
-        {isExporting && (
-          <div className="export-loading">
-            正在导出...
+          <div className="preview-section" ref={previewRef}>
+            <FormulaPreview formula={formula} />
           </div>
-        )}
-        
-        {exportMessage && (
-          <div className={`export-message ${exportMessage.includes('❌') ? 'error' : 'success'}`}>
-            {exportMessage}
-          </div>
-        )}
+
+          <ExportButtons onExport={handleExport} />
+          
+          {/* 导出状态显示 */}
+          {isExporting && (
+            <div className="export-loading">
+              正在导出...
+            </div>
+          )}
+          
+          {exportMessage && (
+            <div className={`export-message ${exportMessage.includes('❌') ? 'error' : 'success'}`}>
+              {exportMessage}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
