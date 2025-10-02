@@ -1,3 +1,11 @@
+# Source code - DO NOT DEPLOY
+src/
+public/
+index.html
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+
 # Dependencies
 node_modules/
 npm-debug.log*
@@ -33,9 +41,6 @@ pids
 # Coverage directory used by tools like istanbul
 coverage/
 
-# Build artifacts (keep dist/ for Vercel)
-# dist/ is needed for Vercel deployment
-
 # Git
 .git/
 .gitignore
@@ -43,3 +48,6 @@ coverage/
 # Documentation
 README.md
 docs/
+
+# Build artifacts (keep dist/ for Vercel)
+# dist/ is needed for Vercel deployment
