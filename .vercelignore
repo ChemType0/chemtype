@@ -1,7 +1,6 @@
 # Source code - DO NOT DEPLOY
 src/
 public/
-index.html
 vite.config.ts
 tsconfig.json
 tsconfig.node.json
